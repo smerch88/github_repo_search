@@ -12,7 +12,6 @@ export const getRepos = async ({ repoName }) => {
     }
     return data;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };

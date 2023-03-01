@@ -6,7 +6,6 @@ export const fetchGetRepos = createAsyncThunk(
   'repos/getRepos',
   async (repoName, thunkApi) => {
     try {
-      console.log(repoName);
       const res = await getRepos(repoName);
       if (res.code === 'ERR_BAD_REQUEST') {
         throw new Error(
