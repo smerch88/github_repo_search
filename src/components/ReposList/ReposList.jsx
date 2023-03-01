@@ -6,18 +6,7 @@ import { getRepos } from 'redux/repos/repos-selectors';
 
 export const ReposList = () => {
   const repos = useSelector(getRepos);
-
-  console.log(repos);
-
   const { items } = repos;
-
-  if (!repos) {
-    return (
-      <Typography variant="h3" component="h2">
-        No repositories found.
-      </Typography>
-    );
-  }
 
   return (
     <>
@@ -25,11 +14,12 @@ export const ReposList = () => {
         List of repos
       </Typography>
       <ul>
-        {items.map(item => (
-          <li key={item.id}>
-            <a href={item.html_url}>{item.name}</a>
-          </li>
-        ))}
+        {items &&
+          items.map(item => (
+            <li key={item.id}>
+              <a href={item.html_url}>{item.name}</a>
+            </li>
+          ))}
       </ul>
     </>
   );
