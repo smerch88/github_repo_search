@@ -8,7 +8,6 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Button,
   useTheme,
 } from '@mui/material';
 import { StyledToolbar } from './Header.Styled';
