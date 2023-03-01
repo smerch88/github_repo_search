@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { reposReducer } from './repos/repos-slice';
+import { themeReducer } from './themeswitch/themeswitch-slice';
 
 const persistConfig = {
   key: 'repos',
@@ -21,7 +22,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reposReducer);
 
 export const store = configureStore({
-  reducer: { repos: persistedReducer },
+  reducer: { repos: persistedReducer, theme: themeReducer },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

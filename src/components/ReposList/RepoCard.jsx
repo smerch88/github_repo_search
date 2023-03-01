@@ -47,18 +47,18 @@ export const RepoCard = ({ item }) => {
           )}
           <Box
             component={Link}
-            href={item.owner.html_url}
+            to={item.owner.html_url}
             target="blank"
             rel="noopener noreferrer"
-            color={'white'}
+            color="inherit"
           >
             <Typography>Owner: {item.owner.login}</Typography>
           </Box>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" onClick={handleLearnMoreClick}>
-          Learn More
+        <Button size="small" onClick={handleLearnMoreClick} variant="outlined">
+          Check It
         </Button>
       </CardActions>
     </Card>
