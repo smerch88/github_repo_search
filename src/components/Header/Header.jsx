@@ -29,7 +29,7 @@ import {
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isThemeChange, setThemeChange] = useState(false);
+  const [isThemeChange, setThemeChange] = useState(true);
 
   const dispatch = useDispatch();
 
