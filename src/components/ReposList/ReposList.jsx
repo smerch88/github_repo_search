@@ -7,12 +7,12 @@ import { RepoCard } from './RepoCard';
 
 export const ReposList = () => {
   const repos = useSelector(getRepos);
-  const { items } = repos;
+  const { items, total_count } = repos;
 
   return (
     <>
-      <Typography variant="h3" component="h2">
-        List of repos
+      <Typography variant="h4" component="h2" mb>
+        List of repos: {total_count} in total.
       </Typography>
       <Grid container spacing={2}>
         {items &&

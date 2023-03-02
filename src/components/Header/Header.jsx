@@ -16,6 +16,7 @@ import FindInPageOutlinedIcon from '@mui/icons-material/FindInPageOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -45,6 +46,10 @@ export const Header = () => {
     } else {
       dispatch(switchToLightMode());
     }
+  };
+
+  const handleGithubiconClick = () => {
+    window.open('https://github.com/smerch88', '_blank');
   };
 
   const menu = (
@@ -77,9 +82,21 @@ export const Header = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Github Repo Search
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, marginLeft: '40px' }}
+            >
+              Github Repo Search App
             </Typography>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleGithubiconClick}
+            >
+              <GitHubIcon />
+            </IconButton>
             <IconButton sx={{ ml: 1 }} onClick={toggleTheme} color="inherit">
               {theme.palette.mode === 'dark' ? (
                 <Brightness4Icon />

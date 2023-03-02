@@ -27,28 +27,35 @@ export const RepoCard = ({ item }) => {
     <Card sx={{ minWidth: 275 }}>
       <CardActionArea onClick={handleCardClick}>
         <CardContent>
-          <Typography sx={typographyStyle}>Name: {item.name}</Typography>
           <Typography sx={typographyStyle}>
-            Created on {item.created_at}
+            <b>Name:</b> {item.name}
           </Typography>
           <Typography sx={typographyStyle}>
-            Language: {item.language}
+            <b>Created</b> on {item.created_at}
           </Typography>
           <Typography sx={typographyStyle}>
-            Description: {item.description}
+            <b>Language:</b> {item.language}
           </Typography>
           <Typography sx={typographyStyle}>
-            Forks: {item.forks_count}
+            <b>Description:</b> {item.description}
           </Typography>
           <Typography sx={typographyStyle}>
-            Watchers: {item.watchers}
+            <b>Forks:</b> {item.forks_count}
           </Typography>
           <Typography sx={typographyStyle}>
-            Visibility: {item.visibility}
+            <b>Watchers:</b> {item.watchers}
+          </Typography>
+          <Typography sx={typographyStyle}>
+            <b>Visibility:</b> {item.visibility}
           </Typography>
           {!isCardClicked && (
-            <Box sx={{ width: '40px' }}>
-              <img src={item.owner.avatar_url} alt="user_avatar" width="100%" />
+            <Box sx={{ width: '40px', height: '40px' }}>
+              <img
+                src={item.owner.avatar_url}
+                alt="user_avatar"
+                width="100%"
+                loading="lazy"
+              />
             </Box>
           )}
           <Box
@@ -59,7 +66,7 @@ export const RepoCard = ({ item }) => {
             color="inherit"
           >
             <Typography sx={typographyStyle}>
-              Owner: {item.owner.login}
+              <b>Owner:</b> {item.owner.login}
             </Typography>
           </Box>
         </CardContent>

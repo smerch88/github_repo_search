@@ -9,7 +9,7 @@ const Search = () => {
     <>
       <Container>
         <Typography variant="h2" component="h1" mb>
-          Github Repo Search Page.
+          Repo Search Page
         </Typography>
         <ReposSearchForm />
         <ReposList />
