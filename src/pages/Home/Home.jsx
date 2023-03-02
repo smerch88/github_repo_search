@@ -8,6 +8,7 @@ import img5 from '../../images/homePageInstructions/Screenshot_5.jpg';
 import img6 from '../../images/homePageInstructions/Screenshot_6.jpg';
 import img8 from '../../images/homePageInstructions/Screenshot_8.jpg';
 import img9 from '../../images/homePageInstructions/Screenshot_9.jpg';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const theme = useTheme();
@@ -108,17 +109,27 @@ const Home = () => {
             <img src={img9} width="20%" alt="screenshot of Errors" />
           </li>
         </ol>
-        <Typography variant="h3" component="h2" mb={4}>
-          Check also my Github Profile Search App
-        </Typography>
         <Button
           fullWidth
           sx={{ marginBottom: theme.spacing(4) }}
           variant="contained"
           color="primary"
+          component={Link}
+          to="/search"
+        >
+          go to search page
+        </Button>
+        <Typography variant="h3" component="h2" mb>
+          Also check also my Github Profile Search App:
+        </Typography>
+        <Button
+          fullWidth
+          sx={{ marginBottom: theme.spacing(4) }}
+          variant="outlined"
+          color="primary"
           onClick={handleCheckItOutClick}
         >
-          CHECK IT OUT
+          try profile stats search app
         </Button>
       </Container>
     </>
