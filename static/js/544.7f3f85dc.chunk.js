@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkgithub_repo_search=self.webpackChunkgithub_repo_search||[]).push([[544],{9544:function(e,h,r){r.r(h);var n=r(1614),c=r(890),t=r(184);h.default=function(){return(0,t.jsx)(t.Fragment,{children:(0,t.jsx)(n.Z,{children:(0,t.jsx)(c.Z,{variant:"h2",component:"h1",mb:!0,children:"Welcome to the Gihub Repo Search App!"})})})}}}]);
-//# sourceMappingURL=544.7f3f85dc.chunk.js.map
