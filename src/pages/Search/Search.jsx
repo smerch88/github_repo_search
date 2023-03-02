@@ -1,6 +1,7 @@
 import { Container, Typography } from '@mui/material';
 
 import { ReposList } from 'components/ReposList/ReposList';
+import { ReposPagination } from 'components/ReposPagination/ReposPagination';
 import { ReposSearchForm } from 'components/ReposSearchForm/ReposSearchForm';
 
 const Search = () => {
@@ -12,6 +13,7 @@ const Search = () => {
         </Typography>
         <ReposSearchForm />
         <ReposList />
+        <ReposPagination />
       </Container>
     </>
   );

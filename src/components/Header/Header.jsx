@@ -82,9 +82,9 @@ export const Header = () => {
             </Typography>
             <IconButton sx={{ ml: 1 }} onClick={toggleTheme} color="inherit">
               {theme.palette.mode === 'dark' ? (
-                <Brightness7Icon />
-              ) : (
                 <Brightness4Icon />
+              ) : (
+                <Brightness7Icon />
               )}
             </IconButton>
           </StyledToolbar>

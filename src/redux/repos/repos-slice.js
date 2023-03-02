@@ -3,6 +3,7 @@ import { fetchGetRepos } from './repos-operations';
 
 const initialState = {
   repos: [],
+  searchQuery: '',
   isLoading: false,
   error: null,
 };
@@ -10,6 +11,11 @@ const initialState = {
 const reposSlice = createSlice({
   name: 'repos',
   initialState: initialState,
+  reducers: {
+    setSearchQuery: (state, action) => {
+      state.searchQuery = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchGetRepos.pending, state => {
@@ -26,5 +32,7 @@ const reposSlice = createSlice({
       });
   },
 });
+
+export const { setSearchQuery } = reposSlice.actions;
 
 export const reposReducer = reposSlice.reducer;

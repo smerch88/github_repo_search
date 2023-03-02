@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getIsLoading } from 'redux/repos/repos-selectors';
 import { fetchGetRepos } from 'redux/repos/repos-operations';
+import { setSearchQuery } from 'redux/repos/repos-slice';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -29,6 +30,7 @@ export const ReposSearchForm = () => {
       };
       console.log(repoName);
       dispatch(fetchGetRepos(repoName));
+      dispatch(setSearchQuery(values.query));
     },
   });
 
