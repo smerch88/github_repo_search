@@ -8,7 +8,7 @@
 
 <p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.</p>
 
-<h3>If you want to raise lomot of requests to api, create .env file in folder with package.json </h3>
+<h3>If you want to raise limot of requests to api, create .env file in folder with package.json </h3>
 
 ![Creating dotenv file](./assets/dotenv.jpg)
 
