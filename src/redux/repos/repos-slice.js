@@ -7,6 +7,7 @@ const initialState = {
   perPage: 3,
   sort: 'best-match',
   order: 'desc',
+  language: '',
   isLoading: false,
   error: null,
 };
@@ -25,6 +26,9 @@ const reposSlice = createSlice({
       state.sort = action.payload;
     },
     setOrder: (state, action) => {
+      state.order = action.payload;
+    },
+    setLanguage: (state, action) => {
       state.order = action.payload;
     },
   },
@@ -49,5 +53,6 @@ export const { setSearchQuery } = reposSlice.actions;
 export const { setPerPage } = reposSlice.actions;
 export const { setSort } = reposSlice.actions;
 export const { setOrder } = reposSlice.actions;
+export const { setLanguage } = reposSlice.actions;
 
 export const reposReducer = reposSlice.reducer;

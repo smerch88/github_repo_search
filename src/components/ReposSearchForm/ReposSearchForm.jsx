@@ -15,6 +15,7 @@ import { useState } from 'react';
 
 import {
   getIsLoading,
+  getLanguage,
   getOrder,
   getPerPage,
   getSearchQuery,
@@ -26,6 +27,7 @@ import {
   setSearchQuery,
   setSort,
   setOrder,
+  setLanguage,
 } from 'redux/repos/repos-slice';
 
 import { useFormik } from 'formik';
@@ -34,6 +36,7 @@ import * as yup from 'yup';
 const validationSchema = yup.object({
   query: yup.string('Enter Name to Search').required('Name is Required'),
   perPage: yup.number('Enter Repos per Page'),
+  language: yup.string('Enter Programming Language'),
   sort: yup.string('Choose Sort Order'),
   order: yup.string('Choose Order'),
 });
@@ -49,11 +52,13 @@ export const ReposSearchForm = () => {
   const perPage = useSelector(getPerPage);
   const sort = useSelector(getSort);
   const order = useSelector(getOrder);
+  const language = useSelector(getLanguage);
 
   const formik = useFormik({
     initialValues: {
       query: searchQuery,
       perPage: perPage,
+      language: language,
       sort: sort,
       order: order,
     },
@@ -62,12 +67,14 @@ export const ReposSearchForm = () => {
       const repoName = {
         repoName: values.query,
         perPage: values.perPage,
+        language: values.language,
         sort: values.sort,
         order: values.order,
       };
       dispatch(fetchGetRepos(repoName));
       dispatch(setSearchQuery(values.query));
       dispatch(setPerPage(values.perPage));
+      dispatch(setLanguage(values.language));
       dispatch(setSort(values.sort));
       dispatch(setOrder(values.order));
     },
@@ -121,6 +128,19 @@ export const ReposSearchForm = () => {
           />
         )}
         {showAdvancedOptions && (
+          <TextField
+            sx={{ marginBottom: theme.spacing(1) }}
+            fullWidth
+            id="language"
+            name="language"
+            label="Programming Language"
+            value={formik.values.language}
+            onChange={formik.handleChange}
+            error={formik.touched.language && Boolean(formik.errors.language)}
+            helperText={formik.touched.language && formik.errors.language}
+          />
+        )}
+        {showAdvancedOptions && (
           <FormControl fullWidth sx={{ marginBottom: theme.spacing(1) }}>
             <InputLabel id="sort-label">Sort Order</InputLabel>
             <Select
@@ -140,7 +160,7 @@ export const ReposSearchForm = () => {
               </MenuItem>
             </Select>
           </FormControl>
-        )}{' '}
+        )}
         {showAdvancedOptions && (
           <FormControl fullWidth sx={{ marginBottom: theme.spacing(1) }}>
             <InputLabel id="order-label">Order</InputLabel>
