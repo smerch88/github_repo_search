@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Pagination, useTheme } from '@mui/material';
+import { Box, Pagination, useMediaQuery, useTheme } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,6 +20,8 @@ export const ReposPagination = () => {
   const searchQuery = useSelector(getSearchQuery);
   const perPage = useSelector(getPerPage);
   const repos = useSelector(getRepos);
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (repos) {
@@ -42,7 +44,8 @@ export const ReposPagination = () => {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            margin: theme.spacing(2),
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2),
           }}
         >
           <Pagination
@@ -50,6 +53,7 @@ export const ReposPagination = () => {
             variant="outlined"
             onChange={handlePageChange}
             page={currentPage}
+            siblingCount={isMobile ? 0 : 1}
           />
         </Box>
       )}

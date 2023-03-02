@@ -12,7 +12,7 @@ export const fetchGetRepos = createAsyncThunk(
           `Failed to fetch data, status code: ${res.response.data.message}`
         );
       }
-      Notify.success('OK');
+      // Notify.success('OK');
       return res;
     } catch (error) {
       Notify.failure(error.message);
