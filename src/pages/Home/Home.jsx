@@ -120,7 +120,7 @@ const Home = () => {
           go to search page
         </Button>
         <Typography variant="h3" component="h2" mb>
-          Also check also my Github Profile Search App:
+          Also check my Github Profile Search App:
         </Typography>
         <Button
           fullWidth
