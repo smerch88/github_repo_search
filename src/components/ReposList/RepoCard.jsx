@@ -9,7 +9,6 @@ import {
   Divider,
   Typography,
 } from '@mui/material';
-import { typographyStyle } from './RepoCard.Styled';
 
 import { Link } from 'react-router-dom';
 
@@ -25,6 +24,12 @@ export const RepoCard = ({ item }) => {
   };
 
   const date = new Date(item.created_at);
+
+  const typographyStyle = {
+    textOverflow: isCardClicked ? 'ellipsis' : 'unset',
+    whiteSpace: isCardClicked ? 'nowrap' : 'unset',
+    overflow: isCardClicked ? 'hidden' : 'unset',
+  };
 
   return (
     <Card sx={{ minWidth: 275 }}>

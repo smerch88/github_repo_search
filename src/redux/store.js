@@ -15,7 +15,7 @@ import { themeReducer } from './themeswitch/themeswitch-slice';
 
 const persistConfig = {
   key: 'repos',
-  whitelist: ['repos', 'searchQuery'],
+  whitelist: ['repos', 'searchQuery', 'perPage', 'sort', 'order', 'language'],
   storage,
 };
 
