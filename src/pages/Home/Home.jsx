@@ -1,7 +1,5 @@
 import { Button, Container, Typography, useTheme } from '@mui/material';
 
-import { Link } from 'react-router-dom';
-
 import img1 from '../../images/homePageInstructions/Screenshot_1.jpg';
 import img2 from '../../images/homePageInstructions/Screenshot_2.jpg';
 import img3 from '../../images/homePageInstructions/Screenshot_3.jpg';
@@ -13,6 +11,11 @@ import img9 from '../../images/homePageInstructions/Screenshot_9.jpg';
 
 const Home = () => {
   const theme = useTheme();
+
+  const handleCheckItOutClick = () => {
+    window.open('https://smerch88.github.io/githubstats/', '_blank');
+  };
+
   return (
     <>
       <Container>
@@ -113,8 +116,7 @@ const Home = () => {
           sx={{ marginBottom: theme.spacing(4) }}
           variant="contained"
           color="primary"
-          component={Link}
-          to="https://smerch88.github.io/githubstats/"
+          onClick={handleCheckItOutClick}
         >
           CHECK IT OUT
         </Button>
