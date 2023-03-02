@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useTheme } from '@mui/material';
 import {
   Box,
