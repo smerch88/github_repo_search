@@ -6,6 +6,7 @@ import {
   CardActionArea,
   CardActions,
   CardContent,
+  Divider,
   Typography,
 } from '@mui/material';
 import { typographyStyle } from './RepoCard.Styled';
@@ -23,6 +24,8 @@ export const RepoCard = ({ item }) => {
     window.open(item.html_url, '_blank');
   };
 
+  const date = new Date(item.created_at);
+
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardActionArea onClick={handleCardClick}>
@@ -30,24 +33,31 @@ export const RepoCard = ({ item }) => {
           <Typography sx={typographyStyle}>
             <b>Name:</b> {item.name}
           </Typography>
+          <Divider />
           <Typography sx={typographyStyle}>
-            <b>Created</b> on {item.created_at}
+            <b>Updated on</b> {date.toLocaleString()}
           </Typography>
+          <Divider />
           <Typography sx={typographyStyle}>
             <b>Language:</b> {item.language}
           </Typography>
+          <Divider />
           <Typography sx={typographyStyle}>
             <b>Description:</b> {item.description}
           </Typography>
+          <Divider />
           <Typography sx={typographyStyle}>
             <b>Forks:</b> {item.forks_count}
           </Typography>
+          <Divider />
           <Typography sx={typographyStyle}>
             <b>Watchers:</b> {item.watchers}
           </Typography>
+          <Divider />
           <Typography sx={typographyStyle}>
             <b>Visibility:</b> {item.visibility}
           </Typography>
+          <Divider />
           {!isCardClicked && (
             <Box sx={{ width: '40px', height: '40px' }}>
               <img

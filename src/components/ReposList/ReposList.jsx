@@ -11,9 +11,11 @@ export const ReposList = () => {
 
   return (
     <>
-      <Typography variant="h4" component="h2" mb>
-        List of repos: {total_count} in total.
-      </Typography>
+      {items && (
+        <Typography variant="h4" component="h2" mb>
+          List of repos: {total_count} in total.
+        </Typography>
+      )}
       <Grid container spacing={2}>
         {items &&
           items.map(item => (
