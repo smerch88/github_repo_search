@@ -8,7 +8,6 @@ import { RepoCard } from './RepoCard';
 export const ReposList = () => {
   const repos = useSelector(getRepos);
   const { items } = repos;
-  console.log(items);
 
   return (
     <>

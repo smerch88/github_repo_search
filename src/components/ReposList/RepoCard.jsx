@@ -8,6 +8,8 @@ import {
   CardContent,
   Typography,
 } from '@mui/material';
+import { typographyStyle } from './RepoCard.Styled';
+
 import { Link } from 'react-router-dom';
 
 export const RepoCard = ({ item }) => {
@@ -25,21 +27,25 @@ export const RepoCard = ({ item }) => {
     <Card sx={{ minWidth: 275 }}>
       <CardActionArea onClick={handleCardClick}>
         <CardContent>
-          <Typography>Name: {item.name}</Typography>
-          <Typography>Created on {item.created_at}</Typography>
-          <Typography>Language: {item.language}</Typography>
-          <Typography
-            sx={{
-              textOverflow: isCardClicked ? 'ellipsis' : 'unset',
-              whiteSpace: isCardClicked ? 'nowrap' : 'unset',
-              overflow: isCardClicked ? 'hidden' : 'unset',
-            }}
-          >
+          <Typography sx={typographyStyle}>Name: {item.name}</Typography>
+          <Typography sx={typographyStyle}>
+            Created on {item.created_at}
+          </Typography>
+          <Typography sx={typographyStyle}>
+            Language: {item.language}
+          </Typography>
+          <Typography sx={typographyStyle}>
             Description: {item.description}
           </Typography>
-          <Typography>Forks: {item.forks_count}</Typography>
-          <Typography>Watchers: {item.watchers}</Typography>
-          <Typography>Visibility: {item.visibility}</Typography>
+          <Typography sx={typographyStyle}>
+            Forks: {item.forks_count}
+          </Typography>
+          <Typography sx={typographyStyle}>
+            Watchers: {item.watchers}
+          </Typography>
+          <Typography sx={typographyStyle}>
+            Visibility: {item.visibility}
+          </Typography>
           {!isCardClicked && (
             <Box sx={{ width: '40px' }}>
               <img src={item.owner.avatar_url} alt="user_avatar" width="100%" />
@@ -52,7 +58,9 @@ export const RepoCard = ({ item }) => {
             rel="noopener noreferrer"
             color="inherit"
           >
-            <Typography>Owner: {item.owner.login}</Typography>
+            <Typography sx={typographyStyle}>
+              Owner: {item.owner.login}
+            </Typography>
           </Box>
         </CardContent>
       </CardActionArea>

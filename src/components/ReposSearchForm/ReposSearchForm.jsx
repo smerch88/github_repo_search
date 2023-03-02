@@ -1,38 +1,81 @@
 import { useTheme } from '@mui/material';
-import { Box, Button, CircularProgress, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
-import { getIsLoading } from 'redux/repos/repos-selectors';
+import {
+  getIsLoading,
+  getOrder,
+  getPerPage,
+  getSearchQuery,
+  getSort,
+} from 'redux/repos/repos-selectors';
 import { fetchGetRepos } from 'redux/repos/repos-operations';
-import { setSearchQuery } from 'redux/repos/repos-slice';
+import {
+  setPerPage,
+  setSearchQuery,
+  setSort,
+  setOrder,
+} from 'redux/repos/repos-slice';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
   query: yup.string('Enter Name to Search').required('Name is Required'),
+  perPage: yup.number('Enter Repos per Page'),
+  sort: yup.string('Choose Sort Order'),
+  order: yup.string('Choose Order'),
 });
 
 export const ReposSearchForm = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
   const theme = useTheme();
+
+  const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
+
+  const isLoading = useSelector(getIsLoading);
+  const searchQuery = useSelector(getSearchQuery);
+  const perPage = useSelector(getPerPage);
+  const sort = useSelector(getSort);
+  const order = useSelector(getOrder);
 
   const formik = useFormik({
     initialValues: {
-      query: '',
+      query: searchQuery,
+      perPage: perPage,
+      sort: sort,
+      order: order,
     },
     validationSchema: validationSchema,
     onSubmit: values => {
       const repoName = {
         repoName: values.query,
+        perPage: values.perPage,
+        sort: values.sort,
+        order: values.order,
       };
-      console.log(repoName);
       dispatch(fetchGetRepos(repoName));
       dispatch(setSearchQuery(values.query));
+      dispatch(setPerPage(values.perPage));
+      dispatch(setSort(values.sort));
+      dispatch(setOrder(values.order));
     },
   });
+
+  const handleToggleAdvancedOptions = () => {
+    setShowAdvancedOptions(!showAdvancedOptions);
+  };
 
   return (
     <>
@@ -55,31 +98,74 @@ export const ReposSearchForm = () => {
           helperText={formik.touched.query && formik.errors.query}
         />
         <Button
-          color="primary"
-          variant="contained"
           fullWidth
-          type="submit"
-          sx={{
-            position: 'relative',
-            backgroundColor: isLoading ? 'lightgrey' : undefined,
-            minHeight: theme.spacing(6),
-          }}
+          variant="contained"
+          onClick={handleToggleAdvancedOptions}
+          sx={{ marginBottom: theme.spacing(1) }}
         >
-          {isLoading ? (
-            <CircularProgress
-              size={24}
-              sx={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                marginTop: '-12px',
-                marginLeft: '-12px',
-                color: 'rgba(255,255,255,0.5)',
-              }}
-            />
-          ) : (
-            'Submit'
-          )}
+          {showAdvancedOptions
+            ? 'Hide advanced options'
+            : 'Show advanced options'}
+        </Button>
+        {showAdvancedOptions && (
+          <TextField
+            sx={{ marginBottom: theme.spacing(1) }}
+            fullWidth
+            id="perPage"
+            name="perPage"
+            label="Repos per Page"
+            value={formik.values.perPage}
+            onChange={formik.handleChange}
+            error={formik.touched.perPage && Boolean(formik.errors.perPage)}
+            helperText={formik.touched.perPage && formik.errors.perPage}
+          />
+        )}
+        {showAdvancedOptions && (
+          <FormControl fullWidth sx={{ marginBottom: theme.spacing(1) }}>
+            <InputLabel id="sort-label">Sort Order</InputLabel>
+            <Select
+              labelId="sort-label"
+              id="sort"
+              name="sort"
+              value={formik.values.sort}
+              onChange={formik.handleChange}
+              error={formik.touched.sort && Boolean(formik.errors.sort)}
+            >
+              <MenuItem value={'best-match'}>Best Match</MenuItem>
+              <MenuItem value={'stars'}>Stars</MenuItem>
+              <MenuItem value={'forks'}>Forks</MenuItem>
+              <MenuItem value={'updated'}>Updated</MenuItem>
+              <MenuItem value={'help-wanted-issues'}>
+                Help Wanted Issues
+              </MenuItem>
+            </Select>
+          </FormControl>
+        )}{' '}
+        {showAdvancedOptions && (
+          <FormControl fullWidth sx={{ marginBottom: theme.spacing(1) }}>
+            <InputLabel id="order-label">Order</InputLabel>
+            <Select
+              labelId="order-label"
+              id="order"
+              name="order"
+              value={formik.values.order}
+              onChange={formik.handleChange}
+              error={formik.touched.order && Boolean(formik.errors.order)}
+            >
+              <MenuItem value={'asc'}>Ascending</MenuItem>
+              <MenuItem value={'desc'}>Descending</MenuItem>
+            </Select>
+          </FormControl>
+        )}
+        <Button
+          fullWidth
+          sx={{ marginBottom: theme.spacing(1) }}
+          variant="contained"
+          color="primary"
+          disabled={isLoading}
+          type="submit"
+        >
+          {isLoading ? <CircularProgress size={24} /> : 'Search'}
         </Button>
       </Box>
     </>

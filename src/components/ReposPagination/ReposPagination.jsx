@@ -1,38 +1,58 @@
 import { useState, useEffect } from 'react';
-import { Pagination } from '@mui/material';
+import { Box, Pagination, useTheme } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchGetRepos } from 'redux/repos/repos-operations';
-import { getRepos, getSearchQuery } from 'redux/repos/repos-selectors';
+import {
+  getPerPage,
+  getRepos,
+  getSearchQuery,
+} from 'redux/repos/repos-selectors';
 
 export const ReposPagination = () => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [numberOfPages, setNumberOfPages] = useState(1);
-  const searchQuery = useSelector(getSearchQuery);
+  const theme = useTheme();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [numberOfPages, setNumberOfPages] = useState(0);
+
+  const searchQuery = useSelector(getSearchQuery);
+  const perPage = useSelector(getPerPage);
   const repos = useSelector(getRepos);
+
   useEffect(() => {
     if (repos) {
       const { total_count: numberOfRepos } = repos;
-      setNumberOfPages(Math.ceil(numberOfRepos / 30));
+      setNumberOfPages(Math.ceil(numberOfRepos / perPage));
     }
-  }, [repos]);
+  }, [repos, perPage]);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
-    dispatch(fetchGetRepos({ repoName: searchQuery, page: value }));
+    dispatch(
+      fetchGetRepos({ repoName: searchQuery, page: value, perPage: perPage })
+    );
   };
 
   return (
     <>
-      <Pagination
-        count={numberOfPages}
-        variant="outlined"
-        onChange={handlePageChange}
-        page={currentPage}
-      />
+      {numberOfPages > 0 && (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: theme.spacing(2),
+          }}
+        >
+          <Pagination
+            count={numberOfPages}
+            variant="outlined"
+            onChange={handlePageChange}
+            page={currentPage}
+          />
+        </Box>
+      )}
     </>
   );
 };
