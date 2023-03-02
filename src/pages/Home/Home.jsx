@@ -8,6 +8,7 @@ import img5 from '../../images/homePageInstructions/Screenshot_5.jpg';
 import img6 from '../../images/homePageInstructions/Screenshot_6.jpg';
 import img8 from '../../images/homePageInstructions/Screenshot_8.jpg';
 import img9 from '../../images/homePageInstructions/Screenshot_9.jpg';
+
 import { Link } from 'react-router-dom';
 
 const Home = () => {

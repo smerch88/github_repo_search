@@ -12,6 +12,7 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import {
   getIsLoading,
@@ -45,6 +46,7 @@ export const ReposSearchForm = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
 
+  const [params, setParams] = useSearchParams();
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
   const isLoading = useSelector(getIsLoading);
@@ -77,6 +79,14 @@ export const ReposSearchForm = () => {
       dispatch(setLanguage(values.language));
       dispatch(setSort(values.sort));
       dispatch(setOrder(values.order));
+
+      setParams({
+        repoName: values.query,
+        perPage: values.perPage,
+        language: values.language,
+        sort: values.sort,
+        order: values.order,
+      });
     },
   });
 
