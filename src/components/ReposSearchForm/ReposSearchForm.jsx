@@ -58,9 +58,9 @@ export const ReposSearchForm = () => {
 
   const savedQuery = params.get('repoName') ?? searchQuery;
   const savedPerPage = params.get('perPage') ?? perPage;
-  const savedLanguage = params.get('language') ?? sort;
-  const savedSort = params.get('sort') ?? order;
-  const savedOrder = params.get('order') ?? language;
+  const savedLanguage = params.get('language') ?? language;
+  const savedSort = params.get('sort') ?? sort;
+  const savedOrder = params.get('order') ?? order;
   const savedSearchParams = {
     repoName: savedQuery,
     perPage: savedPerPage,
