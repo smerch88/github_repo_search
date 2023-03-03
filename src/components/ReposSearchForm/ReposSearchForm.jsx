@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import {
@@ -48,6 +48,19 @@ export const ReposSearchForm = () => {
   const theme = useTheme();
 
   const [params, setParams] = useSearchParams();
+
+  const savedQuery = params.get('repoName') ?? '';
+  const savedPerPage = params.get('perPage') ?? '';
+  const savedLanguage = params.get('language') ?? '';
+  const savedSort = params.get('sort') ?? '';
+  const savedOrder = params.get('order') ?? '';
+  const savedSearchParams = {
+    repoName: savedQuery,
+    perPage: savedPerPage,
+    language: savedLanguage,
+    sort: savedSort,
+    order: savedOrder,
+  };
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
   const isLoading = useSelector(getIsLoading);
@@ -57,13 +70,23 @@ export const ReposSearchForm = () => {
   const order = useSelector(getOrder);
   const language = useSelector(getLanguage);
 
+  useEffect(() => {
+    dispatch(fetchGetRepos(savedSearchParams));
+    dispatch(setSearchQuery(savedSearchParams.query));
+    dispatch(setPerPage(savedSearchParams.perPage));
+    dispatch(setLanguage(savedSearchParams.language));
+    dispatch(setSort(savedSearchParams.sort));
+    dispatch(setOrder(savedSearchParams.order));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const formik = useFormik({
     initialValues: {
-      query: searchQuery,
-      perPage: perPage,
-      language: language,
-      sort: sort,
-      order: order,
+      query: savedQuery ?? searchQuery,
+      perPage: savedPerPage ?? perPage,
+      language: savedLanguage ?? language,
+      sort: savedSort ?? sort,
+      order: savedOrder ?? order,
     },
     validationSchema: validationSchema,
     onSubmit: values => {
