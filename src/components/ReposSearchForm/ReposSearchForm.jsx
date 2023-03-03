@@ -39,7 +39,7 @@ const validationSchema = yup.object({
   query: yup.string('Enter Name to Search').required('Name is Required'),
   perPage: yup.number('Enter Repos per Page'),
   language: yup.string('Enter Programming Language'),
-  sort: yup.string('Choose Sort Order'),
+  sort: yup.string('Choose Sort Parameters'),
   order: yup.string('Choose Order'),
 });
 
@@ -47,13 +47,20 @@ export const ReposSearchForm = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
 
+  const isLoading = useSelector(getIsLoading);
+  const searchQuery = useSelector(getSearchQuery);
+  const perPage = useSelector(getPerPage);
+  const sort = useSelector(getSort);
+  const order = useSelector(getOrder);
+  const language = useSelector(getLanguage);
+
   const [params, setParams] = useSearchParams();
 
-  const savedQuery = params.get('repoName') ?? '';
-  const savedPerPage = params.get('perPage') ?? '';
-  const savedLanguage = params.get('language') ?? '';
-  const savedSort = params.get('sort') ?? '';
-  const savedOrder = params.get('order') ?? '';
+  const savedQuery = params.get('repoName') ?? searchQuery;
+  const savedPerPage = params.get('perPage') ?? perPage;
+  const savedLanguage = params.get('language') ?? sort;
+  const savedSort = params.get('sort') ?? order;
+  const savedOrder = params.get('order') ?? language;
   const savedSearchParams = {
     repoName: savedQuery,
     perPage: savedPerPage,
@@ -63,20 +70,16 @@ export const ReposSearchForm = () => {
   };
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
 
-  const isLoading = useSelector(getIsLoading);
-  const searchQuery = useSelector(getSearchQuery);
-  const perPage = useSelector(getPerPage);
-  const sort = useSelector(getSort);
-  const order = useSelector(getOrder);
-  const language = useSelector(getLanguage);
-
   useEffect(() => {
-    dispatch(fetchGetRepos(savedSearchParams));
-    dispatch(setSearchQuery(savedSearchParams.query));
-    dispatch(setPerPage(savedSearchParams.perPage));
-    dispatch(setLanguage(savedSearchParams.language));
-    dispatch(setSort(savedSearchParams.sort));
-    dispatch(setOrder(savedSearchParams.order));
+    if (savedQuery) {
+      dispatch(fetchGetRepos(savedSearchParams));
+
+      dispatch(setSearchQuery(savedSearchParams.query));
+      dispatch(setPerPage(savedSearchParams.perPage));
+      dispatch(setLanguage(savedSearchParams.language));
+      dispatch(setSort(savedSearchParams.sort));
+      dispatch(setOrder(savedSearchParams.order));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -113,6 +116,19 @@ export const ReposSearchForm = () => {
       });
     },
   });
+
+  const menuItemsParams = [
+    { value: 'best-match', text: 'Best Match' },
+    { value: 'stars', text: 'Stars' },
+    { value: 'forks', text: 'Forks' },
+    { value: 'updated', text: 'Updated' },
+    { value: 'help-wanted-issues', text: 'Help Wanted Issues' },
+  ];
+
+  const menuItemsOrder = [
+    { value: 'asc', text: 'Ascending' },
+    { value: 'desc', text: 'Descending' },
+  ];
 
   const handleToggleAdvancedOptions = () => {
     setShowAdvancedOptions(!showAdvancedOptions);
@@ -176,7 +192,7 @@ export const ReposSearchForm = () => {
         )}
         {showAdvancedOptions && (
           <FormControl fullWidth sx={{ marginBottom: theme.spacing(1) }}>
-            <InputLabel id="sort-label">Sort Order</InputLabel>
+            <InputLabel id="sort-label">Sorting Parameters</InputLabel>
             <Select
               labelId="sort-label"
               id="sort"
@@ -185,19 +201,17 @@ export const ReposSearchForm = () => {
               onChange={formik.handleChange}
               error={formik.touched.sort && Boolean(formik.errors.sort)}
             >
-              <MenuItem value={'best-match'}>Best Match</MenuItem>
-              <MenuItem value={'stars'}>Stars</MenuItem>
-              <MenuItem value={'forks'}>Forks</MenuItem>
-              <MenuItem value={'updated'}>Updated</MenuItem>
-              <MenuItem value={'help-wanted-issues'}>
-                Help Wanted Issues
-              </MenuItem>
+              {menuItemsParams.map(item => (
+                <MenuItem key={item.value} value={item.value}>
+                  {item.text}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         )}
         {showAdvancedOptions && (
           <FormControl fullWidth sx={{ marginBottom: theme.spacing(1) }}>
-            <InputLabel id="order-label">Order</InputLabel>
+            <InputLabel id="order-label">Sorting Order</InputLabel>
             <Select
               labelId="order-label"
               id="order"
@@ -206,8 +220,11 @@ export const ReposSearchForm = () => {
               onChange={formik.handleChange}
               error={formik.touched.order && Boolean(formik.errors.order)}
             >
-              <MenuItem value={'asc'}>Ascending</MenuItem>
-              <MenuItem value={'desc'}>Descending</MenuItem>
+              {menuItemsOrder.map(item => (
+                <MenuItem key={item.value} value={item.value}>
+                  {item.text}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         )}

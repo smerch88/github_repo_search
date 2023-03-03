@@ -8,6 +8,7 @@ import img5 from '../../images/homePageInstructions/Screenshot_5.jpg';
 import img6 from '../../images/homePageInstructions/Screenshot_6.jpg';
 import img8 from '../../images/homePageInstructions/Screenshot_8.jpg';
 import img9 from '../../images/homePageInstructions/Screenshot_9.jpg';
+import img10 from '../../images/homePageInstructions/Screenshot_10.jpg';
 
 import { Link } from 'react-router-dom';
 
@@ -108,6 +109,15 @@ const Home = () => {
               api key implementation.
             </Typography>
             <img src={img9} width="20%" alt="screenshot of Errors" />
+          </li>
+          <li>
+            <Typography variant="h6" component="h3">
+              Share link with friends
+            </Typography>
+            <Typography variant="body1" component="p" mb={2}>
+              Copy link and send it to friend.
+            </Typography>
+            <img src={img10} width="40%" alt="screenshot of share link" />
           </li>
         </ol>
         <Button
