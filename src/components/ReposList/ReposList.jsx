@@ -19,7 +19,7 @@ export const ReposList = () => {
       <Grid container spacing={2}>
         {items &&
           items.map(item => (
-            <Grid item key={item.id} xs={12} sm={6} md={4}>
+            <Grid key={item.id} xs={12} sm={6} md={4}>
               <RepoCard item={item} />
             </Grid>
           ))}
