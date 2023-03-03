@@ -194,6 +194,7 @@ export const ReposSearchForm = () => {
           <FormControl fullWidth sx={{ marginBottom: theme.spacing(1) }}>
             <InputLabel id="sort-label">Sorting Parameters</InputLabel>
             <Select
+              label="Sorting Parameters"
               labelId="sort-label"
               id="sort"
               name="sort"
@@ -213,6 +214,7 @@ export const ReposSearchForm = () => {
           <FormControl fullWidth sx={{ marginBottom: theme.spacing(1) }}>
             <InputLabel id="order-label">Sorting Order</InputLabel>
             <Select
+              label="Sorting Order"
               labelId="order-label"
               id="order"
               name="order"
